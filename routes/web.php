@@ -61,14 +61,14 @@ Route::middleware('auth')->group(function () {
 */
 Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::get('/dashboard', function (Request $request) {
-        if (Auth::user()->email !== 'bm61883@gmail.com') {
+        if (Auth::user()->email !== 'user@gmail.com') {
             abort(403, 'Acceso no autorizado.');
         }
         return app(AdminController::class)->index($request);
     })->name('admin.dashboard');
 
     Route::get('/usuario/{id}/editar', function ($id) {
-        if (Auth::user()->email !== 'bm61883@gmail.com') {
+        if (Auth::user()->email !== 'user@gmail.com') {
             abort(403);
         }
         return redirect()->route('admin.dashboard', ['tab' => 'usuarios', 'editar_usuario' => $id]);
@@ -78,7 +78,7 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::delete('/usuario/{id}', [AdminController::class, 'eliminarUsuario'])->name('admin.usuario.eliminar');
 
     Route::get('/comentario/{id}/editar', function ($id) {
-        if (Auth::user()->email !== 'bm61883@gmail.com') {
+        if (Auth::user()->email !== 'user@gmail.com') {
             abort(403);
         }
         return redirect()->route('admin.dashboard', ['tab' => 'comentarios', 'editar_comentario' => $id]);
@@ -88,7 +88,7 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::delete('/comentario/{id}', [AdminController::class, 'eliminarComentario'])->name('admin.comentario.eliminar');
 
     Route::get('/usuario/crear', function () {
-        if (Auth::user()->email !== 'bm61883@gmail.com') {
+        if (Auth::user()->email !== 'user@gmail.com') {
             abort(403);
         }
         return view('admin.tabs.crear_usuario');
